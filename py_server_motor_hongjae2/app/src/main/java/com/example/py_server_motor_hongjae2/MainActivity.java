@@ -2,13 +2,23 @@ package com.example.py_server_motor_hongjae2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,6 +27,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+
+//Video view를 위한 import
+import android.widget.VideoView;
+import android.widget.MediaController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,10 +50,27 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextAddress, editTextPort, messageText;
     Button connectBtn, disconnectBtn, leftBtn, upBtn, rightBtn, downBtn;
 
+    WebView webView;
+    View videoCustomView;
+    FrameLayout customView;
+    View containerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /**
+         * 2020.03.23 최홍재
+         * video 재생하기
+         */
+
+        webView = (WebView) findViewById(R.id.webView);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://www.youtube.com/watch?v=U_sYIKWhJvk");
+        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebViewClient(new WebViewClientClass());
+
 
         //앱 기본 스타일 설정
         getSupportActionBar().setElevation(0);
@@ -117,6 +148,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * 2020.03.23 최홍재
+     * cutomsetting?
+     */
+
+    private class WebViewClientClass extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
     }
 
     public void ClientSocketOpen(View view) {

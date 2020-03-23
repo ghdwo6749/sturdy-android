@@ -48,6 +48,8 @@
             android:id="@+id/portText"
             android:layout_below="@+id/addressText" />
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,10 +69,20 @@
                 android:layout_marginTop="13dp"
                 android:text="Disconnect" />
 
-
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
+            <WebView
+                android:layout_width="fill_parent"
+                android:layout_height="300dp"
+                android:id="@+id/webView"
+                android:scrollbars="none"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -91,8 +103,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="300dp">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
 
         <Button
             android:text="left"
